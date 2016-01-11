@@ -3,17 +3,18 @@
 
   angular
     .module('tdd')
-    .config(routerConfig);
+    .config(function routerConfig($stateProvider, $urlRouterProvider) {
 
-  /** @ngInject */
-  function routerConfig($stateProvider, $urlRouterProvider) {
-    $stateProvider
-      .state('app', {
-        url: '/',
-        templateUrl: 'app/app.html'
-      });
+      $stateProvider
+        .state('app', {
+          url: '/',
+          templateUrl: 'app/app.html',
+          controllerAs: 'app',
+          controller: 'AppController'
+        });
 
-    $urlRouterProvider.otherwise('/');
-  }
+      $urlRouterProvider.otherwise('/');
+
+    });
 
 })();
