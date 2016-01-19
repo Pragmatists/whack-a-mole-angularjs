@@ -1,9 +1,18 @@
+# Node
 node_modules/
+npm-debug.log
+
+# Bower
 bower_components/
-coverage/
-.sass-cache/
+
+# IntelliJ IDEA
 .idea/
+*.iml
+
+# build
 .tmp/
 dist/
 
-*.iml
+# other stuff
+coverage/
+.sass-cache/
