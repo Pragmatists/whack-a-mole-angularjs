@@ -1,5 +1,27 @@
 <div class="container">
-  <div class="jumbotron">
-    <h1>Hello, World!</h1>
+  <div class="row">
+    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+
+      <div class="jumbotron">
+
+        <h1 class="app-header"> Whack a mole!</h1>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="text-center">
+              <h2> {{app.score}} </h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" data-ng-repeat="rowIndex in [1, 2, 3]">
+          <div class="col-xs-4" data-ng-class="{'col-md-offset-3': false}"
+               data-ng-repeat="rowIndex in [1, 2, 3]">
+            <data-wam-mole data-whack-callback="app.moleWhacked()"></data-wam-mole>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 </div>

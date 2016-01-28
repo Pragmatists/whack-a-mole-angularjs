@@ -1,0 +1,2 @@
+angular
+  .module('whackamole.random', []);

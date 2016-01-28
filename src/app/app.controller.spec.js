@@ -1,18 +1,10 @@
 describe('AppController', function () {
 
-  var init;
+  beforeEach(module('whackamole'));
 
-  beforeEach(module('tdd'));
+  it('initializes', inject(function ($controller) {
+    var controller = $controller('AppController');
 
-  beforeEach(inject(function ($controller) {
-    init = function (injectables) {
-      return $controller('AppController', injectables);
-    };
+    expect(controller).toBeDefined();
   }));
-
-  it('initializes', function () {
-    var ctrl = init();
-
-    expect(ctrl).toBeDefined();
-  });
 });

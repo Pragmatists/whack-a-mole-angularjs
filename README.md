@@ -14,11 +14,11 @@ You are provided with 3x3 grid of nosy moles. But&hellip; the game logic is miss
 
 Rules:
 
-1. Game takes 30 seconds. Before and after it no mole appears. To start new game press "Start" button.
+1. Game takes&hellip; forever ;-) No start button, no game end.
 2. Every mole appears and disappears on its own. There is no correlation with other moles.
-3. Mole is hidden for at least 2 seconds and at most 6 seconds.
-4. Mole is visible for at least 1 second and at most 4 seconds.
-5. You to click on visible mole to make it hidden immediately and to gain 1 point.
+3. Mole is hidden for at least 2 seconds and at most 20 seconds.
+4. Mole is visible for at least 4 second and at most 6 seconds.
+5. You have to click on visible mole to make it hidden immediately and to gain 1 point.
 6. The more points you have the better mole-whacker you are!
 
 Good luck! :-)
@@ -29,13 +29,11 @@ setup
 Prerequisites:
 
 * `npm` installed globally
-* `gulp` installed globally (otherwise you can use `./node_modules/.bin/gulp` command)
 
 Some of most useful commands are:
 
 * `npm install` - install all dependencies
-* `gulp test` - run unit tests
-* `gulp protractor` - run end-to-end tests
-* `gulp serve` - serve app in a browser and watch for changes
+* `npm test` - run unit tests
+* `npm start` - serve app in a browser and watch for changes
 
 

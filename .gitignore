@@ -13,6 +13,5 @@ bower_components/
 .tmp/
 dist/
 
-# other stuff
+# test coverage reports
 coverage/
-.sass-cache/
