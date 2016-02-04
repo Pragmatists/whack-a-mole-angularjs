@@ -6,13 +6,9 @@ angular
       nextBetween: nextBetween
     };
 
-    function nextBetween(minValue) {
-      return {
-        and: function (maxValue) {
-          var offset = minValue;
-          var rangeLength = maxValue - minValue;
-          return offset + rangeLength * mathRandom.next();
-        }
-      }
+    function nextBetween(minValue, maxValue) {
+      var offset = minValue;
+      var rangeLength = maxValue - minValue;
+      return offset + rangeLength * mathRandom.next();
     }
   });

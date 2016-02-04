@@ -40,11 +40,11 @@ angular
     }
 
     function millisToAppearAgain() {
-      return random.nextBetween(2 * 1000).and(10 * 1000);
+      return random.nextBetween(2 * 1000, 10 * 1000);
     }
 
     function millisToHideAgain() {
-      return random.nextBetween(4 * 1000).and(6 * 1000);
+      return random.nextBetween(4 * 1000, 6 * 1000);
     }
 
   });

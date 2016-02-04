@@ -20,7 +20,7 @@ describe('"random" service"', function () {
     it('provides next random number in given range: ' + testParameters.description, inject(function (mathRandom) {
       spyOn(mathRandom, 'next').and.returnValue(testParameters.mathRandomValue);
 
-      var nextRandomNumber = random.nextBetween(1).and(9);
+      var nextRandomNumber = random.nextBetween(1, 9);
 
       expect(nextRandomNumber).toBe(testParameters.expectedRandomNumber);
     }))
