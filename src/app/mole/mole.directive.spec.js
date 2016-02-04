@@ -1,112 +1,121 @@
 describe('"mole" directive\'s controller', function () {
 
+  var _2_SECONDS_IN_MILLIS = 2000;
+  var A_LONG_TIME_IN_MILLIS = 1000 * 1000;
+
   var $controller;
   var $timeout;
+  var mockedNextRandomValue;
 
-  var _2_SECONDS_IN_MILLIS = 2000;
+  var mole;
 
   beforeEach(module('whackamole.mole'));
 
-  beforeEach(inject(function (_$controller_, _$timeout_) {
+  beforeEach(inject(function (_$controller_, _$timeout_, random) {
     $controller = _$controller_;
     $timeout = _$timeout_;
+    mockedNextRandomValue = spyOn(random, 'nextBetween');
+    givenThatNextRandomValueIs(A_LONG_TIME_IN_MILLIS);
   }));
 
   it('is defined', function () {
-    // given
-    var mole = initMoleDirectiveController();
+    initMoleDirectiveController();
 
-    // then
     expect(mole).toBeDefined();
   });
 
   it('makes mole hidden at init', function () {
-    // given
-    var mole = initMoleDirectiveController();
+    initMoleDirectiveController();
 
-    // then
-    expect(mole.isVisible()).toBe(false);
+    expectMoleToBeHidden();
   });
 
-  it('makes hidden mole visible after some time', inject(function (random) {
-    // given
-    spyOn(random, 'nextBetween').and.returnValue(_2_SECONDS_IN_MILLIS);
-    var mole = initMoleDirectiveController();
+  it('makes hidden mole visible after some time', function () {
+    givenThatNextRandomValueIs(_2_SECONDS_IN_MILLIS);
+    initMoleDirectiveController();
 
-    // when
-    $timeout.flush(_2_SECONDS_IN_MILLIS);
+    expectMoleToBecomeVisibleAfter(_2_SECONDS_IN_MILLIS);
+  });
 
-    // then
-    expect(mole.isVisible()).toBe(true);
-  }));
+  it('makes visible mole hidden again after some time', function () {
+    givenThatNextRandomValueIs(_2_SECONDS_IN_MILLIS);
+    initMoleDirectiveController();
+    wait(_2_SECONDS_IN_MILLIS);
 
-  it('makes visible mole hidden again after some time', inject(function (random) {
-    // given
-    spyOn(random, 'nextBetween').and.returnValue(_2_SECONDS_IN_MILLIS);
-    var mole = initMoleDirectiveController();
-    $timeout.flush(_2_SECONDS_IN_MILLIS);
+    expectMoleToBecomeHiddenAfter(_2_SECONDS_IN_MILLIS);
+  });
 
-    // when
-    $timeout.flush(_2_SECONDS_IN_MILLIS);
+  it('makes visible mole hidden on whack', function () {
+    givenThatNextRandomValueIs(_2_SECONDS_IN_MILLIS);
+    initMoleDirectiveController();
+    wait(_2_SECONDS_IN_MILLIS);
 
-    // then
-    expect(mole.isVisible()).toBe(false);
-  }));
-
-  it('makes visible mole hidden on whack', inject(function (random) {
-    // given
-    spyOn(random, 'nextBetween').and.returnValue(_2_SECONDS_IN_MILLIS);
-    var mole = initMoleDirectiveController();
-    $timeout.flush(_2_SECONDS_IN_MILLIS);
-
-    // when
     mole.whack();
 
-    // then
-    expect(mole.isVisible()).toBe(false);
-  }));
+    expectMoleToBeHidden();
+  });
 
-  it('calls callback on whack', inject(function (random) {
-    // given
-    spyOn(random, 'nextBetween').and.returnValue(_2_SECONDS_IN_MILLIS);
+  it('calls callback on whack', function () {
+    givenThatNextRandomValueIs(_2_SECONDS_IN_MILLIS);
     var callbackCalled = false;
-    var mole = initMoleDirectiveControllerWithWhackCallback(function () {
+    initMoleDirectiveControllerWithWhackCallback(function () {
       callbackCalled = true;
     });
-    $timeout.flush(_2_SECONDS_IN_MILLIS);
+    wait(_2_SECONDS_IN_MILLIS);
 
-    // when
     mole.whack();
 
-    // then
     expect(callbackCalled).toBe(true);
-  }));
+  });
 
-  it('makes whacked mole visible again after some time', inject(function (random) {
-    // given
-    spyOn(random, 'nextBetween').and.returnValue(_2_SECONDS_IN_MILLIS);
-    var mole = initMoleDirectiveController();
-    $timeout.flush(_2_SECONDS_IN_MILLIS);
+  it('makes whacked mole visible again after some time (start counting from the whack)', function () {
+    givenThatNextRandomValueIs(_2_SECONDS_IN_MILLIS);
+    initMoleDirectiveController();
+    wait(_2_SECONDS_IN_MILLIS);
+
+    wait(_2_SECONDS_IN_MILLIS - 1);
     mole.whack();
 
-    // when
-    $timeout.flush(_2_SECONDS_IN_MILLIS);
-
-    // then
-    expect(mole.isVisible()).toBe(true);
-  }));
+    expectMoleToBecomeVisibleAfter(_2_SECONDS_IN_MILLIS);
+  });
 
   function initMoleDirectiveController() {
-    return initMoleDirectiveControllerWithWhackCallback(doNothing);
+    initMoleDirectiveControllerWithWhackCallback(doNothing);
   }
 
   function initMoleDirectiveControllerWithWhackCallback(whackCallback) {
-    var controller = $controller('MoleDirectiveController');
-    controller.whackCallback = whackCallback;
-    return controller;
+    mole = $controller('MoleDirectiveController', {}, {whackCallback: whackCallback});
   }
 
-  // TODO tests for delay ranges to ask service
+  function givenThatNextRandomValueIs(randomValue) {
+    mockedNextRandomValue.and.returnValue(randomValue);
+  }
+
+  function expectMoleToBecomeHiddenAfter(timeInMillis) {
+    wait(timeInMillis - 1);
+    expectMoleToBeVisible();
+    wait(1);
+    expectMoleToBeHidden();
+  }
+
+  function expectMoleToBecomeVisibleAfter(timeInMillis) {
+    wait(timeInMillis - 1);
+    expectMoleToBeHidden();
+    wait(1);
+    expectMoleToBeVisible();
+  }
+
+  function expectMoleToBeHidden() {
+    expect(mole.isVisible()).toBe(false);
+  }
+
+  function expectMoleToBeVisible() {
+    expect(mole.isVisible()).toBe(true);
+  }
+
+  function wait(timeInMillis) {
+    $timeout.flush(timeInMillis);
+  }
 
   function doNothing() {
   }
