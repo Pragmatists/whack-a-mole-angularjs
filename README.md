@@ -49,3 +49,5 @@ Additional tasks
 
 1. Extract score from `app.html`/`app.controller.js` to separate directive.
 
+1. Add `Start`/`Stop` button. Moles can be visible only during the game (after `Start` click and before `Stop` click).
+   No timeout should be active before or after the game. Click on `Start` makes score set back to `0`. 
