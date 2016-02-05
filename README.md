@@ -45,7 +45,8 @@ Some of most useful commands are:
 Additional tasks
 ----------------
 
-1. Use `scoreService` to update score on mole-whack (instead of callback provided to mole directive).
+1. If you have provided callback to mole directive, then use `scoreService` to update score on mole-whack instead of
+   this callback.
 
 1. Extract score from `app.html`/`app.controller.js` to separate directive.
 

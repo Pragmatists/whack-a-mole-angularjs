@@ -1,4 +1,2 @@
 angular
-  .module('whackamole.mole', [
-    'whackamole.random'
-  ]);
+  .module('whackamole.mole', []);
