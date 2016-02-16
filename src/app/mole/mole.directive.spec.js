@@ -5,7 +5,6 @@ describe('"mole" directive', function () {
 
   beforeEach(module('whackamole.test.templates'));
   beforeEach(module('whackamole.mole'));
-
   beforeEach(injectDependencies);
 
   it('compiles', function () {
@@ -15,7 +14,6 @@ describe('"mole" directive', function () {
 
     // then
     expect(element.find('.mole')).toExist();
-    expect(element.find('.mole')).toHaveText('mole placeholder');
   });
 
   function injectDependencies() {

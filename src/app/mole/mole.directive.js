@@ -11,5 +11,4 @@ angular
   })
   .controller('MoleDirectiveController', function () {
     var vm = this;
-    vm.temporaryLabel = 'mole placeholder';
   });
