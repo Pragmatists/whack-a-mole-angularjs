@@ -1,6 +1,6 @@
 describe('"mole" directive\'s controller', function () {
 
-  var $controller;
+  var $controller, initMoleDirectiveController;
 
   var mole;
 

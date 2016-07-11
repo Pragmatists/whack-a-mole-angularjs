@@ -22,5 +22,8 @@ function buildScripts() {
   return gulp.src(path.join(conf.paths.src, '/app/**/*.js'))
     .pipe($.eslint())
     .pipe($.eslint.format())
+    .pipe($.babel())
     .pipe($.size())
+    .pipe(gulp.dest(path.join(conf.paths.tmp + '/serve/app/')));
+
 };

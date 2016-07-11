@@ -12,8 +12,8 @@ var pathSrcHtml = [
 
 function listFiles() {
   var wiredepOptions = _.extend({}, conf.wiredep, {
-    dependencies: true,
-    devDependencies: true
+    dependencies : true,
+    devDependencies : true
   });
 
   var patterns = wiredep(wiredepOptions).js
@@ -27,14 +27,14 @@ function listFiles() {
 
   var files = patterns.map(function (pattern) {
     return {
-      pattern: pattern
+      pattern : pattern
     };
   });
   files.push({
-    pattern: path.join(conf.paths.src, '/assets/**/*'),
-    included: false,
-    served: true,
-    watched: false
+    pattern : path.join(conf.paths.src, '/assets/**/*'),
+    included : false,
+    served : true,
+    watched : false
   });
   return files;
 }
@@ -42,52 +42,47 @@ function listFiles() {
 module.exports = function (config) {
 
   var configuration = {
+    files : listFiles(),
 
-    files: listFiles(),
+    singleRun : true,
 
-    singleRun: true,
+    autoWatch : false,
 
-    autoWatch: false,
-
-    ngHtml2JsPreprocessor: {
-      stripPrefix: conf.paths.src + '/',
-      moduleName: 'whackamole.test.templates'
+    ngHtml2JsPreprocessor : {
+      stripPrefix : conf.paths.src + '/',
+      moduleName : 'whackamole.test.templates'
     },
 
-    logLevel: 'WARN',
+    logLevel : 'WARN',
 
-    frameworks: [
-      'jasmine',
-      'angular-filesort'
-    ],
+    frameworks : ['jasmine', 'angular-filesort'],
 
-    angularFilesort: {
-      whitelist: [
-        path.join(conf.paths.src, '/**/!(*.html|*.spec|*.mock).js')
-      ]
+    angularFilesort : {
+      whitelist : [path.join(conf.paths.src, '/**/!(*.html|*.spec|*.mock).js')]
     },
 
     browsers: [
       'PhantomJS'
     ],
 
-    plugins: [
+    plugins : [
       'karma-phantomjs-launcher',
       'karma-angular-filesort',
       'karma-coverage',
       'karma-jasmine',
+      'karma-babel-preprocessor',
       'karma-ng-html2js-preprocessor'
     ],
 
-    coverageReporter: {
-      type: 'html',
-      dir: 'coverage/'
+    coverageReporter : {
+      type : 'html',
+      dir : 'coverage/'
     },
 
-    reporters: ['progress'],
+    reporters : ['progress'],
 
-    proxies: {
-      '/assets/': path.join('/base/', conf.paths.src, '/assets/')
+    proxies : {
+      '/assets/' : path.join('/base/', conf.paths.src, '/assets/')
     }
   };
 
@@ -96,6 +91,7 @@ module.exports = function (config) {
   // It was not possible to do it there because karma doesn't let us now if we are
   // running a single test or not
   configuration.preprocessors = {};
+  configuration.preprocessors[path.join(conf.paths.src, '/app/**/*.js')] = ['babel'];
   pathSrcHtml.forEach(function (path) {
     configuration.preprocessors[path] = ['ng-html2js'];
   });
