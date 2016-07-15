@@ -40,7 +40,7 @@ Some of most useful commands are:
 
 * `npm install` - install all dependencies
 * `npm test` - run unit tests
-* `npm start` - serve app in a browser and watch for changes
+* `npm run start` - serve app in a browser and watch for changes
 
 Additional tasks
 ----------------
@@ -48,7 +48,7 @@ Additional tasks
 1. If you have provided callback to mole directive, then use `scoreService` to update score on mole-whack instead of
    this callback.
 
-1. Extract score from `app.html`/`app.controller.js` to separate directive.
+1. Extract score from `app.html`/`app.controller.js` to separate directive or component.
 
 1. Add `Start`/`Stop` button. Moles can be visible only during the game (after `Start` click and before `Stop` click).
    No timeout should be active before or after the game. Click on `Start` makes score set back to `0`. 
