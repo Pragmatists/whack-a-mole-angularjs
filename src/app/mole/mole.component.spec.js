@@ -1,4 +1,4 @@
-describe('"mole" directive', function () {
+describe('"mole" component', function () {
 
   var $compile;
   var $scope;
